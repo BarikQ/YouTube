@@ -1,0 +1,181 @@
+@font-face {
+  font-family: TW-R;
+  src: url(src/TitilliumWeb-Regular.ttf);
+}
+
+@font-face {
+  font-family: TW-B;
+  src: url(src/TitilliumWeb-Bold.ttf);
+}
+
+body {
+  color: black;
+  font-weight: 400;
+  font-family: TW-R;
+}
+
+#textOutput {
+  background: lemonchiffon;
+  width: 250px;
+  margin-top: 15px;
+}
+
+#output {
+  background: tomato;
+  width: 250px;
+  margin-top: 15px;
+}
+
+#videoOutput {
+  margin-top: 15px;
+  line-height: 20px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: rgb(16, 66, 66);
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  flex-direction: row;
+}
+
+.search_content {
+  width: 80%;
+  height: 36px;
+  padding: 2px 0px 2px 15px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+
+.search_bar {
+  width: 100%;
+  border: none;
+  background: none;
+  font-size: 20px;
+}
+
+.submit_btn {
+  width: 100px;
+  border: none;
+  border-left: 1px solid black;
+  background-color: transparent;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 40px;
+  position: relative;
+  top: -2px;
+}
+
+.submit_btn:hover {
+  background: #f76262;
+}
+
+.videoResults {
+  display: grid;
+  grid-template: 1fr / repeat(4, 1fr);
+  list-style: none;
+  margin-top: 100px;
+  justify-items: center;
+}
+
+ul {
+  list-style: none;
+}
+
+.videoCard {
+  background: white;
+  border: 1px red solid;
+  border-radius: 15px;
+  width: 300px;
+  height: 450px;
+  position: relative;
+}
+
+.videoCard img {
+  width: 100%;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  width: 100%;
+}
+
+a:hover {
+  text-decoration: #f76262;
+}
+
+.videoCard > a > h3 {
+  background: #0080009e;
+  position: absolute;
+  top: 80px;
+  height: 90px;
+  width: inherit;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.videoCard > a:hover > h3 {
+  text-decoration: black;
+}
+
+.videoCard > ul {
+  margin: 15px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.videoCard > ul > li {
+  margin: 5px;
+}
+
+.videoCard > ul > li > span {
+  font-size: 21px;
+  color: #1137c5;
+  font-family: TW-B;
+}
+.videoDescription {
+  font-size: 18px;
+  margin: 15px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.check {
+  display: none;
+  background: green;
+}
+
+@media (max-width: 1300px) {
+  .videoResults {
+    grid-template: 1fr / repeat(2, 1fr);
+  }
+
+  .check {
+    background: red;
+  }
+}
+
+@media (max-width: 650px) {
+  .videoResults {
+    grid-template: 1fr / repeat(1, 1fr);
+  }
+
+  .check {
+    background: black;
+  }
+}
