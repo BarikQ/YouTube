@@ -98,7 +98,7 @@ ul {
   border: 1px red solid;
   border-radius: 15px;
   width: 300px;
-  height: 450px;
+  height: 475px;
   position: relative;
 }
 
@@ -149,7 +149,7 @@ a:hover {
   font-family: TW-B;
 }
 .videoDescription {
-  font-size: 18px;
+  font-size: 15px;
   margin: 15px;
   text-align: center;
   overflow: hidden;
