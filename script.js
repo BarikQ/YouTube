@@ -46,26 +46,23 @@ function requestLoad(param) {
 }
 
 function draw(list) {
-  let ul = document.createElement('ul');
   let videoContainer = document.querySelector('#videoResults');
-  videoContainer.appendChild(ul);
+  let card = '';
   list.forEach(elem => {
-    videoContainer.insertAdjacentHTML(
-      'afterbegin',
-      `<div class="videoCard" id="videoCard">
-      <a href="https://www.youtube.com/watch?v=${elem.id}" target="_blank">
-          <h3>${elem.title}</h3>
-          <img src="${elem.img}" alt='video preview'>
-      </a>
-      <ul>
-          <li><span>Channel Name:</span> ${elem.author}</li>
-          <li><span>Publication Date:</span> ${elem.date.replace(/T.+/g, '')}</li>
-          <li><span>Views:</span> ${elem.views}</li>
-      </ul>
-      <p class="videoDescription">${elem.description}</p>
-    </div>`
-    );
+    card += `<div class="videoCard" id="videoCard">
+        <a href="https://www.youtube.com/watch?v=${elem.id}" target="_blank">
+            <h3>${elem.title}</h3>
+            <img src="${elem.img}" alt='video preview'>
+        </a>
+        <ul>
+            <li><span>Channel Name:</span> ${elem.author}</li>
+            <li><span>Publication Date:</span> ${elem.date.replace(/T.+/g, '')}</li>
+            <li><span>Views:</span> ${elem.views}</li>
+        </ul>
+        <p class="videoDescription">${elem.description}</p>
+    </div>`;
   });
+  videoContainer.innerHTML = card;
   console.log(videoContainer);
 }
 
