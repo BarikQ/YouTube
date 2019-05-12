@@ -2,15 +2,28 @@
 /* eslint-disable no-console */
 const KEY = 'AIzaSyCinOcle4xOrJxmmOqE3y1vK2y8EJlIFjA';
 let prevVal;
+let prevPos = 0;
 let uploadedVideo = 0;
 let videosList = [];
 let videoCount = 0;
+if (window.innerWidth > 1300) {
+  videoCount = 4;
+} else if (window.innerWidth > 500) {
+  videoCount = 2;
+} else videoCount = 1;
 
 function keywordCheck() {
   const KEYWORD = document.querySelector('#searchTxt').value;
   if (KEYWORD === prevVal) return 0;
   prevVal = KEYWORD;
   uploadedVideo = 0;
+  if (window.innerWidth > 1300) {
+    videoCount = 4;
+  } else if (window.innerWidth > 500) {
+    videoCount = 2;
+  } else videoCount = 1;
+  document.querySelector('#slider').style.setProperty('--num', videoCount);
+  document.querySelector('#slider').style.setProperty('--index', 0);
   return 1;
 }
 
@@ -45,10 +58,52 @@ function requestLoad(param) {
   return fetch(URL);
 }
 
+// eslint-disable-next-line no-unused-vars
+function changeSlide(position) {
+  let label = document.querySelectorAll('.label');
+  if (prevPos !== position) {
+    label[prevPos].style.background = null;
+    label[position].style.background = 'red';
+  }
+  prevPos = position;
+  document.querySelector('#slider').style.setProperty('--index', position);
+  return 0;
+}
+
+function createSwitch(length) {
+  let slider = document.querySelector('#slider');
+  if (document.querySelector('#navButtons')) document.querySelector('#navButtons').remove();
+  let navBar = '<section class="navButtons" id="navButtons">';
+  for (let i = 0; i < length; i += 1) {
+    navBar += `<input type="radio" id="card-${i}">`;
+  }
+  navBar += '<div class="controls" id="controls">';
+  for (let i = 0; i < length; i += 1) {
+    navBar += `<label for="card-${i}" class="label" id="label-${i}" onclick="changeSlide(${i})">${i +
+      1}</label>`;
+  }
+  navBar += '</div></section>';
+  slider.insertAdjacentHTML('afterend', navBar);
+  let label = document.querySelectorAll('.label');
+  label[0].style.background = 'red';
+  return 0;
+}
+
+function createSlider() {
+  let slider = document.querySelector('#slider');
+  const Num = slider.children.length;
+  slider.style.setProperty('--num', Num);
+  createSwitch(Num);
+  return 0;
+}
+
 function draw(list) {
-  let videoContainer = document.querySelector('#videoResults');
+  let slider = document.querySelector('#slider');
   let card = '';
-  list.forEach(elem => {
+  list.forEach((elem, index) => {
+    if (index % videoCount === 0) {
+      card += '<div class = "slide">';
+    }
     card += `<div class="videoCard" id="videoCard">
         <a href="https://www.youtube.com/watch?v=${elem.id}" target="_blank">
             <h3>${elem.title}</h3>
@@ -61,9 +116,12 @@ function draw(list) {
         </ul>
         <p class="videoDescription">${elem.description}</p>
     </div>`;
+    if ((index + 1) % videoCount === 0) {
+      card += '</div>';
+    }
   });
-  videoContainer.innerHTML = card;
-  console.log(videoContainer);
+  slider.innerHTML = card;
+  createSlider();
 }
 
 function requestExecution() {
@@ -115,8 +173,7 @@ window.onload = function drawPage() {
       '</div>\n' +
       '</section>\n' +
       '<div class="check"></div>\n' +
-      '<section class="videoResults" id="videoResults">\n' +
-      '</section>\n'}`
+      '<section class="slider" id="slider"></section>\n'}`
   );
   document.querySelector('#submit_btn').addEventListener('click', search);
   document.querySelector('#searchTxt').addEventListener('keypress', event => {

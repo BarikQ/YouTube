@@ -38,6 +38,7 @@ body {
 
 body {
   background-color: rgb(16, 66, 66);
+  overflow: hidden;
 }
 
 .search {
@@ -81,14 +82,6 @@ body {
   background: #f76262;
 }
 
-.videoResults {
-  display: grid;
-  grid-template: 1fr / repeat(4, 1fr);
-  list-style: none;
-  margin-top: 100px;
-  justify-items: center;
-}
-
 ul {
   list-style: none;
 }
@@ -127,6 +120,7 @@ a:hover {
   display: flex;
   align-items: center;
   text-align: center;
+  justify-content: center;
 }
 
 .videoCard > a:hover > h3 {
@@ -160,21 +154,68 @@ a:hover {
   background: green;
 }
 
-@media (max-width: 1300px) {
-  .videoResults {
-    grid-template: 1fr / repeat(2, 1fr);
-  }
+.slider {
+  margin-top: 100px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  width: calc(var(--num) * 100%);
+  transform: translate(calc(var(--index) * -100% / var(--num)), 0);
+  transition: transform 1s ease;
+}
 
+.slide {
+  display: flex;
+  justify-content: space-around;
+  width: calc(100% / var(--num));
+}
+
+.navButtons > input {
+  display: none;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  flex-wrap: wrap;
+}
+
+.label_active {
+  background: powderblue;
+  color: red;
+}
+
+label:focus {
+  background: black;
+}
+
+label {
+  cursor: pointer;
+  border-radius: 50%;
+  border: 3px solid firebrick;
+  background: transparent;
+  font-family: TW-B;
+  color: white;
+  font-size: 23px;
+  text-align: center;
+  height: 35px;
+  width: 35px;
+  margin: 5px;
+}
+
+label:hover {
+  transform: scale(1.2);
+  color: #da00ff;
+}
+
+@media (max-width: 1300px) {
   .check {
     background: red;
   }
 }
 
 @media (max-width: 650px) {
-  .videoResults {
-    grid-template: 1fr / repeat(1, 1fr);
-  }
-
   .check {
     background: black;
   }
