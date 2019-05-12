@@ -15,6 +15,9 @@ if (window.innerWidth > 1300) {
 function keywordCheck() {
   const KEYWORD = document.querySelector('#searchTxt').value;
   if (KEYWORD === prevVal) return 0;
+  if (typeof prevVal !== 'undefined') {
+    document.querySelector('#slider').innerHTML = '';
+  }
   prevVal = KEYWORD;
   uploadedVideo = 0;
   if (window.innerWidth > 1300) {
@@ -150,8 +153,6 @@ function requestExecution() {
             videosList[i].views = data.items[i - uploadedVideo].statistics.viewCount;
           }
           uploadedVideo += 15;
-          console.log(videosList);
-          // render video function
           draw(videosList);
           return videosList;
         });
