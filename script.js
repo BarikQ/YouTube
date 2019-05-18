@@ -102,9 +102,9 @@ function slideTool() {
   window.addEventListener('mousemove', move, false);
   window.addEventListener('mouseup', stop, false);
 
-  window.addEventListener('touchstart', lock, false);
-  window.addEventListener('touchmove', move, { passive: false });
-  window.addEventListener('touchend', stop, false);
+  slider.addEventListener('touchstart', lock, false);
+  slider.addEventListener('touchmove', move, { passive: false });
+  slider.addEventListener('touchend', stop, false);
   return 0;
 }
 
