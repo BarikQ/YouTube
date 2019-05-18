@@ -218,7 +218,7 @@ window.onload = function drawPage() {
     `${'<section id="search" class="search">\n' +
       '<div class="search_content">\n' +
       '<input type="text" class="search_bar" id="searchTxt" placeholder="What do you want to find?">\n' +
-      '<button type="submit" id="submit_btn" class="submit_btn">Find It!</button>\n' +
+      '<button type="submit" onsubmit="search()" id="submit_btn" class="submit_btn">Find It!</button>\n' +
       '</div>\n' +
       '</section>\n' +
       '<div class="check"></div>\n' +
