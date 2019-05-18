@@ -1,5 +1,5 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable prefer-const */
-/* eslint-disable no-console */
 const KEY = 'AIzaSyCinOcle4xOrJxmmOqE3y1vK2y8EJlIFjA';
 let prevVal;
 let prevPos = 0;
@@ -61,15 +61,62 @@ function requestLoad(param) {
   return fetch(URL);
 }
 
-// eslint-disable-next-line no-unused-vars
+function slideTool() {
+  const slider = document.querySelector('#slider');
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+  let dx;
+  let position = parseInt(slider.style.getPropertyValue('--index'), 10);
+
+  function stop() {
+    position = parseInt(slider.style.getPropertyValue('--index'), 10);
+    isDown = false;
+    dx = slider.style.left;
+    dx = dx.match(/-?\d+/g);
+    if (dx > 100 && position !== 0) changeSlide(position - 1);
+    else if (dx < -100 && position !== 7) changeSlide(position + 1);
+    slider.style.left = 0;
+  }
+
+  function unify(e) {
+    return e.changedTouches ? e.changedTouches[0] : e;
+  }
+
+  function move(e) {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = unify(e).clientX;
+    const walk = x - startX;
+    slider.scrollLeft = scrollLeft - walk;
+    slider.style.left = `${walk}px`;
+  }
+
+  function lock(e) {
+    isDown = true;
+    startX = unify(e).clientX;
+    // startX = e.pageX - slider.offsetLeft;
+  }
+
+  window.addEventListener('mousedown', lock, false);
+  window.addEventListener('mousemove', move, false);
+  window.addEventListener('mouseup', stop, false);
+
+  window.addEventListener('touchstart', lock, false);
+  window.addEventListener('touchmove', move, { passive: false });
+  window.addEventListener('touchend', stop, false);
+  return 0;
+}
+
 function changeSlide(position) {
+  const slider = document.querySelector('#slider');
   let label = document.querySelectorAll('.label');
   if (prevPos !== position) {
     label[prevPos].style.background = null;
     label[position].style.background = 'red';
   }
   prevPos = position;
-  document.querySelector('#slider').style.setProperty('--index', position);
+  slider.style.setProperty('--index', position);
   return 0;
 }
 
@@ -162,6 +209,7 @@ function requestExecution() {
 
 function search() {
   requestExecution();
+  slideTool();
 }
 
 window.onload = function drawPage() {
