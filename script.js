@@ -74,8 +74,8 @@ function slideTool() {
     isDown = false;
     dx = slider.style.left;
     dx = dx.match(/-?\d+/g);
-    if (dx > 100 && position !== 0) changeSlide(position - 1);
-    else if (dx < -100 && position !== 7) changeSlide(position + 1);
+    if (dx > 10 && position !== 0) changeSlide(position - 1);
+    else if (dx < -10 && position !== 7) changeSlide(position + 1);
     slider.style.left = 0;
   }
 
