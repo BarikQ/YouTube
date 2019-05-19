@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable prefer-const */
 const KEY = 'AIzaSyCinOcle4xOrJxmmOqE3y1vK2y8EJlIFjA';
+const KEY2 = 'AIzaSyBe-leRTzB6Xygs7BA-azH_DB1UfBhXwZI';
 let prevVal;
 let prevPos = 0;
 let uploadedVideo = 0;
@@ -36,7 +37,7 @@ function createURL(param) {
   switch (param) {
     case 'search': {
       URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=${uploadedVideo +
-        15}&q=${KEYWORD}&key=${KEY}`;
+        15}&q=${KEYWORD}&key=${KEY2}`;
       break;
     }
 
@@ -46,7 +47,7 @@ function createURL(param) {
         idList[i] = videosList[i].id;
       }
       const idString = idList.join(',');
-      URL = `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${idString}&key=${KEY}`;
+      URL = `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${idString}&key=${KEY2}`;
       break;
     }
 
@@ -70,6 +71,8 @@ function slideTool() {
   let position = parseInt(slider.style.getPropertyValue('--index'), 10);
 
   function stop() {
+    let label = document.querySelectorAll('.label');
+    label[position].style.color = null;
     position = parseInt(slider.style.getPropertyValue('--index'), 10);
     isDown = false;
     dx = slider.style.left;
@@ -93,9 +96,11 @@ function slideTool() {
   }
 
   function lock(e) {
+    position = parseInt(slider.style.getPropertyValue('--index'), 10);
+    let label = document.querySelectorAll('.label');
+    label[position].style.color = 'black';
     isDown = true;
     startX = unify(e).clientX;
-    // startX = e.pageX - slider.offsetLeft;
   }
 
   window.addEventListener('mousedown', lock, false);
@@ -117,6 +122,7 @@ function changeSlide(position) {
   }
   prevPos = position;
   slider.style.setProperty('--index', position);
+  if (!label[position + 1]) search();
   return 0;
 }
 
